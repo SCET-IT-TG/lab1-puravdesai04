@@ -1,24 +1,49 @@
+// ==============================
+// Exercise 1: Database & Collection Creation
+// ==============================
 
+// Switch to (or create) database examDB
+db = db.getSiblingDB("examDB");
 
+// Create a collection "students" by inserting at least two documents
+db.students.insertMany([
+  { name: "Raju Rastogi", dept: "IT", sem: 4 },
+  { name: "Ashish Shah", dept: "IT", sem: 4 }
+]);
 
+// ==============================
+// Exercise 2: Insert Document with Multiple Fields
+// ==============================
 
-db.students.insertOne({ name:"Raju Rastogi",dept:"IT",sem:4})
-db.students.insertOne({ name:"Ashish Shah",dept:"IT",sem:4})
+db.students.insertOne({
+  name: "Raju Rastogi",
+  department: "IT",
+  semester: 4,
+  mobile: 6767676767
+});
 
+db.students.insertOne({
+  name: "Ashish Shah",
+  department: "IT",
+  semester: 4,
+  mobile: 12534567895
+});
 
+// ==============================
+// Exercise 3: Array of Simple Values
+// ==============================
 
-db.students.insertOne({ name:"Raju Rastogi",dept:"IT",sem:4,mobile:6767676767})
-db.students.insertOne({ name:"Ashish Shah",dept:"IT",sem:4,mobile:12534567895})
-
-
-
+// Create collection "subjects" and insert a document with array of subjects
 db.subjects.insertOne({
   course_name: "IT",
-  subject_list: [
-    "DBMS","NoSql","AWT"
-  ]
-})
+  subject_list: ["DBMS", "NoSql", "AWT"]
+});
 
+// ==============================
+// Exercise 4: Array of Objects
+// ==============================
+
+// Create collection "faculty" and insert a document with array of objects
 db.faculty.insertOne({
   department: "Information Technology",
   teachers: [
@@ -26,48 +51,49 @@ db.faculty.insertOne({
     { name: "Prof. Mehta", experience: 8 },
     { name: "Ms. Patel", experience: 5 }
   ]
-})
+});
 
+// ==============================
+// Exercise 5: Explicit Primary Key
+// ==============================
 
-
-
+// Insert a document with an explicit ObjectId
 db.students.insertOne({
-  _id: ObjectId(),
+  _id: ObjectId(),  // MongoDB generates a unique ObjectId
   name: "Barney Stinson",
   department: "IT",
   semester: 6
-})
+});
 
+// ==============================
+// Exercise 6: Duplicate Primary Key Observation
+// ==============================
 
+// Insert a document with a manually specified _id
 db.students.insertOne({
   _id: ObjectId("64abc123456789abcdef0001"),
   name: "Ted"
-})
+});
 
+// Attempt to insert another document with the same _id
+// This will generate a duplicate key error
+// db.students.insertOne({
+//   _id: ObjectId("64abc123456789abcdef0001"),
+//   name: "Marshal"
+// });
 
-db.students.insertOne({
-  _id: ObjectId("64abc123456789abcdef0001"),
-  name: "Marshal"
-})
+// ==============================
+// Exercise 7: Multiple Inserts Using insertOne / insertMany
+// ==============================
 
+// Insert multiple documents one by one (recommended modern approach)
+db.students.insertOne({ name: "Ted Mosby", dept: "Architecture", sem: 4 });
+db.students.insertOne({ name: "Marshall Eriksen", dept: "Law", sem: 5 });
+db.students.insertOne({ name: "Lily Aldrin", dept: "Art", sem: 3 });
 
-
-db.students.insert({
-  name: "Ted Mosby",
-  dept: "Architecture",
-  sem: 4
-})
-
-db.students.insert({
-  name: "Marshall Eriksen",
-  dept: "Law",
-  sem: 5
-})
-
-db.students.insert({
-  name: "Lily Aldrin",
-  dept: "Art",
-  sem: 3
-})
-
-
+// Or insert all three at once using insertMany
+db.students.insertMany([
+  { name: "Ted Mosby", dept: "Architecture", sem: 4 },
+  { name: "Marshall Eriksen", dept: "Law", sem: 5 },
+  { name: "Lily Aldrin", dept: "Art", sem: 3 }
+]);
