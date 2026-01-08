@@ -1,0 +1,69 @@
+// EX 1: Insert basic student documents with name, department, and semester
+db.students.insertOne({ name:"Raju Rastogi",dept:"IT",sem:4})
+db.students.insertOne({ name:"Ashish Shah",dept:"IT",sem:4})
+
+
+// EX 2: Insert student documents including an additional field (mobile number)
+db.students.insertOne({ name:"Raju Rastogi",dept:"IT",sem:4,mobile:6767676767})
+db.students.insertOne({ name:"Ashish Shah",dept:"IT",sem:4,mobile:12534567895})
+
+
+// EX 3: Insert a document with an array field (list of subjects for a course)
+db.subjects.insertOne({
+  course_name: "IT",
+  subject_list: [
+    "DBMS","NoSql","AWT"
+  ]
+})
+
+
+// EX 4: Insert a document containing an array of embedded documents
+db.faculty.insertOne({
+  department: "Information Technology",
+  teachers: [
+    { name: "Dr. Sharma", experience: 12 },
+    { name: "Prof. Mehta", experience: 8 },
+    { name: "Ms. Patel", experience: 5 }
+  ]
+})
+
+
+// EX 5: Insert a document with an auto-generated ObjectId
+db.students.insertOne({
+  _id: ObjectId(),
+  name: "Barney Stinson",
+  department: "IT",
+  semester: 6
+})
+
+
+// EX 6: Demonstrate duplicate _id error (second insert will fail)
+db.students.insertOne({
+  _id: ObjectId("64abc123456789abcdef0001"),
+  name: "Ted"
+})
+
+db.students.insertOne({
+  _id: ObjectId("64abc123456789abcdef0001"),
+  name: "Marshal"
+})
+
+
+// EX 7: Insert multiple student documents using insert()
+db.students.insert({
+  name: "Ted Mosby",
+  dept: "Architecture",
+  sem: 4
+})
+
+db.students.insert({
+  name: "Marshall Eriksen",
+  dept: "Law",
+  sem: 5
+})
+
+db.students.insert({
+  name: "Lily Aldrin",
+  dept: "Art",
+  sem: 3
+})
